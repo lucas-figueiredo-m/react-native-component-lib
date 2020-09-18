@@ -1,0 +1,6 @@
+rootProject.name = 'ComponentLibExample'
+apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
+include ':app'
+
+include ':reactnativecomponentlib'
+project(':reactnativecomponentlib').projectDir = new File(rootProject.projectDir, '../../android')
