@@ -8,34 +8,34 @@ const testData = [
     'ios-pie-chart',
     'ios-notifications',
     'ios-person',
-]
+];
 
 class App extends Component {
 
   state = {
     barColor: 'white',
     highlightColor: 'green'
-  }
+  };
 
   upperCallback = (childData) => {
     this.setState({ barColor: childData})
-  }
+  };
 
   lowerCallback = (childData) => {
     this.setState({ highlightColor: childData})
-  }
+  };
 
   icon = (slideIndex, index, content) => {
     return (
       <Ionicon name={content} size={35} color={ index == slideIndex ? '#37027D' : '#666666' } />
     )
-  }
+  };
 
   text = (slideIndex, index, content) => {
     return (
       <Text style={{ color: index == slideIndex ? '#37027D' : '#666666'}}>{content}</Text>
     )
-  }
+  };
 
   render() {
     return (
@@ -67,8 +67,8 @@ class App extends Component {
       </View>
       
     )
-  }
-}
+  };
+};
 
 const styles = StyleSheet.create({
     backButton: {
@@ -80,6 +80,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginTop: 50
     }
-})
+});
 
 export default App;
