@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, Animated,
     PanResponder, Dimensions,
-    TouchableOpacity, StyleSheet
+    TouchableOpacity, StyleSheet,
+    Text
 } from 'react-native'
 import { styles } from './styles'
 
 const window = Dimensions.get("window");
 const screen = Dimensions.get("screen");
 
-const Drawer = ({ backgroundColor, drawerIcon, headerText, secondaryIcon, drawerRight, children, drawerChildren, headerHeight }) => {
+const Drawer = ({ backgroundColor, drawerIcon, headerComponent, secondaryIcon, drawerRight, children, drawerChildren, headerHeight, onSecondaryPress }) => {
     const [dimensions, setDimensions]          = useState({ window, screen });
     const [active, setActive]                  = useState(false);
-   
-    const [rotateAnimation, setRotate]         = useState( new Animated.Value(0) );
-    const [viewOpacity, setViewOpacity]        = useState( new Animated.Value(0) );
-    const [drawerPosition, setDrawePosition]   = useState( new Animated.ValueXY({ x: drawerRight ? window.width : -window.width * 0.8, y: 0}) );
+
+    const viewOpacity     = useRef( new Animated.Value(0) ).current;
+    const drawerPosition  = useRef( new Animated.ValueXY({ x: drawerRight ? window.width : -window.width * 0.8, y: 0}) ).current;
+
 
     const onChange = ({ window, screen }) => setDimensions({ window, screen });
     
@@ -75,12 +76,6 @@ const Drawer = ({ backgroundColor, drawerIcon, headerText, secondaryIcon, drawer
     });
 
     useEffect( () => {
-        Animated.timing(rotateAnimation, {
-            toValue: active ? 1 : 0,
-            duration: 250,
-            useNativeDriver: true
-        }).start();
-
         Animated.timing(viewOpacity, {
             toValue: active ? 1 : 0,
             duration: 250,
@@ -93,56 +88,59 @@ const Drawer = ({ backgroundColor, drawerIcon, headerText, secondaryIcon, drawer
         return () => Dimensions.removeEventListener("change", onChange)
     }, [])
 
-    const width  = dimensions.window.width;
-    const height = dimensions.window.height;
+    const width  = dimensions.screen.width;
+    const height = dimensions.screen.height;
     const drawerWidth = width * 0.8
-
-    const spinButton = rotateAnimation.interpolate({
-        inputRange: [0, 1],
-        outputRange: ['0deg', drawerRight ? '-180deg' : '180deg']
-    })
 
     const shaderOpacity = viewOpacity.interpolate({
         inputRange: [0, 1],
         outputRange: [0, 0.8]
     })
+
+    const onMenuOpen = () => {
+        setActive(!active)
+        Animated.timing(
+            drawerPosition, {
+                toValue: { x: drawerRight ? width - drawerWidth : 0, y: 0 },
+                duration: 500,
+                useNativeDriver: false,
+        }).start()
+    }
     
 
     return (
         <View style={styles.root}>
-            {
-                headerHeight
-                ?
-                <View style={{ width, height: headerHeight, backgroundColor: backgroundColor }} />
-                :
-                null
-            }
-            <View style={[ styles.header, { width, height: height * 0.075 , backgroundColor: backgroundColor, flexDirection: drawerRight ? 'row-reverse' : 'row' }]}>
-                
-                <Animated.View style={{ transform: [{ rotate: spinButton }] }}>
-                    <TouchableOpacity onPress={ () => {
-                        setActive(!active)
-                        Animated.timing(
-                            drawerPosition, {
-                                toValue: { x: drawerRight ? width - drawerWidth : 0, y: 0 },
-                                duration: 500,
-                                useNativeDriver: false,
-                        }).start()
-                    }}
+
+            <View style={[ styles.header, { width, height: headerHeight , backgroundColor: backgroundColor, flexDirection: drawerRight ? 'row-reverse' : 'row' }]}>
+            
+                <View style={styles.sideContainer}>
+                    <TouchableOpacity
+                    style={styles.sideContainer}
+                    onPress={onMenuOpen}
                     >
                         { drawerIcon() }    
-                    </TouchableOpacity>    
-                </Animated.View>
+                    </TouchableOpacity>  
+                </View>
                 
-                { headerText() }
+                
+                <View style={styles.centralContainer}>
+                    {headerComponent}
+                </View>
 
-                {
-                    secondaryIcon
-                    ?
-                    secondaryIcon()
-                    :
-                    <View />
-                }
+                <View style={styles.sideContainer}>
+                    {
+                        secondaryIcon
+                        ?
+                        <TouchableOpacity
+                        onPress={onSecondaryPress}
+                        style={styles.sideContainer}
+                        >
+                            { secondaryIcon() }
+                        </TouchableOpacity>
+                        :
+                        null
+                    }
+                </View>
             </View>
 
             <View style={styles.childrenStyle}>

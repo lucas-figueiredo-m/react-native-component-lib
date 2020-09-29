@@ -9,9 +9,7 @@ export const styles = StyleSheet.create({
 
     header: {
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: "space-between",
-        paddingHorizontal: width * 0.05,
+        paddingBottom: height * 0.02,
         zIndex: 1
     },
 
@@ -24,5 +22,18 @@ export const styles = StyleSheet.create({
     childrenStyle: {
         flex: 1,
         zIndex: 1
-    }
+    },
+
+    sideContainer: {
+        flex: 15,
+        alignItems: 'center',
+        justifyContent: 'flex-end'
+    },
+
+    centralContainer: {
+        flex: 70,
+        alignItems: 'center',
+        justifyContent: 'flex-end'
+    },
+
 })

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, StatusBar, Dimensions } from 'react-native';
 
 import Ionicon from 'react-native-vector-icons/Ionicons';
 // import { TextField } from 'react-native-component-lib';
 import { Drawer } from 'react-native-component-lib';
 
 const Page2 = (props) => {
+    const { width, height } = Dimensions.get('screen')
 
     const drawerChildren = () => {
         return (
@@ -20,14 +21,16 @@ const Page2 = (props) => {
  
     return (
         <View style={{ flex: 1, backgroundColor: 'white'}}>
+            <StatusBar backgroundColor='transparent' translucent barStyle='light-content' />
             <Drawer
             backgroundColor={'#37027D'}
             drawerRight={true}
-            headerHeight={20}
+            headerHeight={height * 0.15}
             drawerIcon={ () => <Ionicon name='ios-menu' size={36} color={'white'} /> }
-            headerText={ () => <Text style={{ color: 'white' }}>Component Lib</Text> }
+            headerComponent={<Text style={{ color: 'white' }}>Hello</Text>}
             drawerChildren={ () => drawerChildren() }
-            //secondaryIcon={ () => <MenuIcon fill={'black'} stroke={'white'} /> }
+            secondaryIcon={ () => <Ionicon name='ios-menu' size={36} color={'white'} /> }
+            onSecondaryPress={ () => null }
             >
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                     <TouchableOpacity>
