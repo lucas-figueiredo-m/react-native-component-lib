@@ -10,7 +10,8 @@ export const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
         paddingBottom: height * 0.02,
-        zIndex: 1
+        zIndex: 1,
+        elevation: 24
     },
 
     drawerView: {
