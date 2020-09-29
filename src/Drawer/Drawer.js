@@ -118,7 +118,7 @@ const Drawer = ({ backgroundColor, drawerIcon, headerComponent, secondaryIcon, d
                     style={styles.sideContainer}
                     onPress={onMenuOpen}
                     >
-                        { drawerIcon() }    
+                        {drawerIcon}    
                     </TouchableOpacity>  
                 </View>
                 
@@ -135,7 +135,7 @@ const Drawer = ({ backgroundColor, drawerIcon, headerComponent, secondaryIcon, d
                         onPress={onSecondaryPress}
                         style={styles.sideContainer}
                         >
-                            { secondaryIcon() }
+                            {secondaryIcon}
                         </TouchableOpacity>
                         :
                         null
@@ -150,7 +150,7 @@ const Drawer = ({ backgroundColor, drawerIcon, headerComponent, secondaryIcon, d
             <Animated.View
             {...panResponder.panHandlers}
             style={[ styles.drawerView, { height: height, width: drawerWidth, transform: drawerPosition.getTranslateTransform() } ]}>
-                { drawerChildren() }
+                {drawerChildren}
             </Animated.View>
 
             <Animated.View opacity={shaderOpacity} style={[StyleSheet.absoluteFill, { backgroundColor: 'black', zIndex: active ? 2 : 0 }]}>

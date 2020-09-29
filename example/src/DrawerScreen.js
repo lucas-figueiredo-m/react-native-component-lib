@@ -26,10 +26,10 @@ const Page2 = (props) => {
             backgroundColor={'#37027D'}
             drawerRight={true}
             headerHeight={height * 0.15}
-            drawerIcon={ () => <Ionicon name='ios-menu' size={36} color={'white'} /> }
+            drawerIcon={<Ionicon name='ios-menu' size={36} color={'white'} /> }
             headerComponent={<Text style={{ color: 'white' }}>Hello</Text>}
-            drawerChildren={ () => drawerChildren() }
-            secondaryIcon={ () => <Ionicon name='ios-menu' size={36} color={'white'} /> }
+            drawerChildren={drawerChildren()}
+            secondaryIcon={<Ionicon name='ios-menu' size={36} color={'white'} />}
             onSecondaryPress={ () => null }
             >
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
