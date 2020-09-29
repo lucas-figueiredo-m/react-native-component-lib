@@ -111,6 +111,27 @@ const Drawer = ({ backgroundColor, drawerIcon, headerComponent, secondaryIcon, d
     return (
         <View style={styles.root}>
 
+            <Animated.View
+            {...panResponder.panHandlers}
+            style={[ styles.drawerView, { height: height, width: drawerWidth, transform: drawerPosition.getTranslateTransform() } ]}>
+                {drawerChildren}
+            </Animated.View>
+
+            <Animated.View opacity={shaderOpacity} style={[StyleSheet.absoluteFill, { backgroundColor: 'black', elevation: 24,  zIndex: active ? 2 : 0 }]}>
+                <TouchableOpacity
+                onPress={ () => {
+                    setActive(false)
+                    Animated.timing(
+                        drawerPosition, {
+                            toValue: { x: drawerRight ? width : -drawerWidth, y: 0 },
+                            duration: 500,
+                            useNativeDriver: false,
+                    }).start()
+                }}
+                style={{ flex: 1 }}
+                />
+            </Animated.View>
+
             <View style={[ styles.header, { width, height: headerHeight , backgroundColor: backgroundColor, flexDirection: drawerRight ? 'row-reverse' : 'row' }]}>
             
                 <View style={styles.sideContainer}>
@@ -146,28 +167,6 @@ const Drawer = ({ backgroundColor, drawerIcon, headerComponent, secondaryIcon, d
             <View style={styles.childrenStyle}>
                 { children }
             </View>
-
-            <Animated.View
-            {...panResponder.panHandlers}
-            style={[ styles.drawerView, { height: height, width: drawerWidth, transform: drawerPosition.getTranslateTransform() } ]}>
-                {drawerChildren}
-            </Animated.View>
-
-            <Animated.View opacity={shaderOpacity} style={[StyleSheet.absoluteFill, { backgroundColor: 'black', zIndex: active ? 2 : 0 }]}>
-                <TouchableOpacity
-                onPress={ () => {
-                    setActive(false)
-                    Animated.timing(
-                        drawerPosition, {
-                            toValue: { x: drawerRight ? width : -drawerWidth, y: 0 },
-                            duration: 500,
-                            useNativeDriver: false,
-                    }).start()
-                }}
-                style={{ flex: 1 }}
-                />
-            </Animated.View>
-            
         </View>
     )
 }

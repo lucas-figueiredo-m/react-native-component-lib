@@ -17,7 +17,8 @@ export const styles = StyleSheet.create({
     drawerView: {
         position: 'absolute',
         backgroundColor: 'white',
-        zIndex: 4
+        zIndex: 25,
+        elevation: 24
     },
 
     childrenStyle: {
