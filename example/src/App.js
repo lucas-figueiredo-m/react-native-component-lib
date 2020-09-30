@@ -6,9 +6,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './HomeScreen';
 
 import Inputs from './Inputs';
-import DrawerScreen from './DrawerScreen'
-import ActionButtonScreen from './ActionButtonScreen'
-import NavBarScreen from './NavBarScreen'
+import DrawerScreen from './DrawerScreen';
+import ActionButtonScreen from './ActionButtonScreen';
+import NavBarScreen from './NavBarScreen';
+import PickerScreen from './PickerScreen';
 
 export default App = () => {
 
@@ -23,6 +24,7 @@ export default App = () => {
         <Stack.Screen name="drawerScreen" component={DrawerScreen} />
         <Stack.Screen name="navBarScreen" component={NavBarScreen} />
         <Stack.Screen name="inputs" component={Inputs} />
+        <Stack.Screen name="pickerScreen" component={PickerScreen} />
 
       </Stack.Navigator>
     </NavigationContainer>

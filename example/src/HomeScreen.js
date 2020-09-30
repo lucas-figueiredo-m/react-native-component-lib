@@ -20,6 +20,10 @@ export default function HomeScreen(props) {
         {
             label: 'ActionButton',
             onPress: () => props.navigation.navigate('actionButtonScreen')
+        },
+        {
+            label: 'Picker',
+            onPress: () => props.navigation.navigate('pickerScreen')
         }
     ]
 
